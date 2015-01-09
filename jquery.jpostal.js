@@ -200,7 +200,12 @@ function Jpostal ( i_JposDb ) {
 		console.log( this.address );
 		for ( var key in this.options.address ) {
 			var s = this.formatAddress( this.options.address[key], this.address );
-			$(key).val( s );
+			var $target = $(key);
+			if ($target[0].nodeName == 'SELECT') {
+				$target.val( $target.find("option:contains('"+s+"')").val() );
+			} else {
+				$(key).val( s );
+			}
 		}
 	};
 	
